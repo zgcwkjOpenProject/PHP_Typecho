@@ -62,8 +62,8 @@ class Upgrade
                     ->limit(100)
             );
 
-            if (!empty($rows)) {
-                $lastId = end($rows)['cid'];
+            if (count($rows) > 0) {
+                $lastId = $rows[count($rows) - 1]['cid'];
             }
 
             foreach ($rows as $row) {
