@@ -62,8 +62,9 @@ class Upgrade
                     ->limit(100)
             );
 
-            if (count($rows) > 0) {
-                $lastId = $rows[count($rows) - 1]['cid'];
+            $rowCount = count($rows);
+            if ($rowCount > 0) {
+                $lastId = $rows[$rowCount - 1]['cid'];
             }
 
             foreach ($rows as $row) {
@@ -78,7 +79,7 @@ class Upgrade
                         ->where('cid = ?', $row['cid']));
                 }
             }
-        } while (count($rows) === 100);
+        } while ($rowCount === 100);
 
         $rows = $db->fetchAll($db->select()->from('table.options'));
 
