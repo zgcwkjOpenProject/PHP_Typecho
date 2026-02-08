@@ -62,6 +62,10 @@ class Upgrade
                     ->limit(100)
             );
 
+            if (!empty($rows)) {
+                $lastId = end($rows)['cid'];
+            }
+
             foreach ($rows as $row) {
                 if (strpos($row['text'], 'a:') !== 0) {
                     continue;
@@ -73,8 +77,6 @@ class Upgrade
                         ->rows(['text' => json_encode($value)])
                         ->where('cid = ?', $row['cid']));
                 }
-
-                $lastId = $row['cid'];
             }
         } while (count($rows) === 100);
 
